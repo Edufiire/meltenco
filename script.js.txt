@@ -1,0 +1,37 @@
+let cart = [];
+
+function addToCart(nome, preco) {
+    cart.push({ nome, preco });
+    updateCart();
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    cartItems.innerHTML = '';
+    let total = 0;
+
+    cart.forEach(item => {
+        let li = document.createElement('li');
+        li.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+        cartItems.appendChild(li);
+        total += item.preco;
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+}
+
+// Funções para modais (Açaí e Fondue)
+function showAcaiModal(nome, preco) {
+    let acompanhamentos = prompt(`Escolha os acompanhamentos para ${nome}:\nEx: Granola, Leite Condensado`);
+    if(acompanhamentos !== null) {
+        addToCart(`${nome} com ${acompanhamentos}`, preco);
+    }
+}
+
+function showCustomFondueModal() {
+    let ingredientes = prompt("Digite os ingredientes do seu fondue:");
+    if(ingredientes !== null) {
+        addToCart(`Fondue com ${ingredientes}`, 39.90);
+    }
+}
